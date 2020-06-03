@@ -1,4 +1,4 @@
-const Model = require('../Models/Strofe');
+const Model = require('../Models/Letter');
 
 module.exports = {
     async findAll(req, res){
@@ -7,7 +7,7 @@ module.exports = {
             if(!list.length)
             res.status(200).json({
                 count: list.length,
-                message: "Nenhum Estrofe encontrado"
+                message: "Nenhuma letra encontrado"
             })
 
             res.status(200).json({
@@ -24,7 +24,7 @@ module.exports = {
         try {
             await Model.create(req.body);
             res.status(200).json({
-                message: "Estrofe cadastrado com sucesso!"
+                message: "Letra cadastrado com sucesso!"
             })
         } catch (error) {
             res.status(401).json({
@@ -34,9 +34,9 @@ module.exports = {
     },
     async update(req, res){
         try {
-            await Model.update({_id: req.params.id}, req.body);
+            await Model.updateOne({_id: req.params.id}, req.body);
             res.status(200).json({
-                message: "Estrofe atualizado com sucesso!"
+                message: "Letra atualizado com sucesso!"
             })
         } catch (error) {
             res.status(401).json({
@@ -48,7 +48,7 @@ module.exports = {
         try {
             await Model.deleteOne({_id: req.params.id});
             res.status(200).json({
-                message: "Estrofe apagado com sucesso!"
+                message: "Letra apagado com sucesso!"
             })
         } catch (error) {
             res.status(401).json({

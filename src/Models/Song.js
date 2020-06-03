@@ -14,8 +14,12 @@ const SongSChema = new Schema({
             type: connection.Schema.Types.ObjectId,
             ref: "Cd",
             required: true,
-        }
+        },
     },
+    updateAt:{
+        type: Date,
+        default: Date.now()
+    }
 },{
     collection: "song"
 })

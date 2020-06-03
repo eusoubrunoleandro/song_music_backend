@@ -7,6 +7,10 @@ const CdSchema = new Schema({
     },
     year: {
         type: Number
+    },
+    updateAt:{
+        type: Date,
+        default: Date.now()
     }
 },{
     collection: "cd"
