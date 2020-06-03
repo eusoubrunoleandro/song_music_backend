@@ -2,7 +2,7 @@ const express = require('express');
 
 const CdController = require('./controllers/CdController');
 const SongController = require('./controllers/SongController');
-const StrofeController = require('./controllers/StrofeController');
+const LetterController = require('./controllers/LetterController');
 
 const Router = express();
 
@@ -16,9 +16,9 @@ Router.post('/song/create/', SongController.insert);
 Router.put('/song/update/:id', SongController.update);
 Router.delete('/song/delete/:id', SongController.delete);
 
-Router.get('/strofe/list/:song_id', StrofeController.findAll);
-Router.post('/strofe/create/', StrofeController.insert);
-Router.put('/strofe/update/:id', StrofeController.update);
-Router.delete('/strofe/delete/:id', StrofeController.delete);
+Router.get('/letter/list/:song_id', LetterController.findAll);
+Router.post('/letter/create/', LetterController.insert);
+Router.put('/letter/update/:id', LetterController.update);
+Router.delete('/letter/delete/:id', LetterController.delete);
 
 module.exports = Router;
