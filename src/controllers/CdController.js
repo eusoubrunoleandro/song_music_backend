@@ -1,4 +1,5 @@
 const Model = require('../Models/CD');
+const ModelSong = require('../Models/Song');
 
 module.exports = {
     async findAll(req, res){
@@ -34,7 +35,11 @@ module.exports = {
     },
     async update(req, res){
         try {
-            await Model.update({_id: req.params.id}, req.body);
+            const {updateAt, cd_name, year} = req.body;
+            await Model.updateOne({_id: req.params.id}, req.body);
+            await ModelSong.updateMany({"cd.cd_id": req.params.id}, {
+                cd: {cd_name_year: `${cd_name} - ${year}`}
+            })
             res.status(200).json({
                 message: "Cd atualizado com sucesso!"
             })
@@ -46,6 +51,7 @@ module.exports = {
     },
     async delete(req, res){
         try {
+            await ModelSong.findByIdAndDelete({cd_id: req.paramas.id})
             await Model.deleteOne({_id: req.params.id});
             res.status(200).json({
                 message: "Cd apagado com sucesso!"
