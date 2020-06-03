@@ -3,7 +3,7 @@ const Model = require('../Models/Letter');
 module.exports = {
     async findAll(req, res){
         try {
-            const list = await Model.find({song: req.params.song_id}).sort('sequence');
+            const list = await Model.find({song: req.params.song_id});
             if(!list.length)
             res.status(200).json({
                 count: list.length,
@@ -28,7 +28,7 @@ module.exports = {
             })
         } catch (error) {
             res.status(401).json({
-                message: error
+                message: error.message
             })
         }        
     },
