@@ -1,13 +1,17 @@
 const connection = require('../database/connection');
 const Schema = connection.Schema;
 const StrofeSchema = new Schema({
-    letter: {
+    strofe: {
         type: String,
         required: true,
     },
     song:{
         type: connection.Schema.Types.ObjectId,
         ref: "Song",
+        required: true,
+    },
+    sequence:{
+        type: Number,
         required: true,
     },
     updateAt:{
