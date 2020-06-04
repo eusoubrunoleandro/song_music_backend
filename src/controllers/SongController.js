@@ -56,14 +56,14 @@ module.exports = {
     },
     async delete(req, res){
         try {
-            await ModelLetter.findByIdAndDelete({song: req.paramas.id})
+            await ModelLetter.deleteMany({song: req.params.id})
             await Model.deleteOne({_id: req.params.id});
             res.status(200).json({
                 message: "Song apagado com sucesso!"
             })
         } catch (error) {
             res.status(401).json({
-                message: error
+                message: error.message
             })
         }        
     },
