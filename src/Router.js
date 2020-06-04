@@ -16,6 +16,7 @@ Router.post('/song/create/', SongController.insert);
 Router.put('/song/update/:id', SongController.update);
 Router.delete('/song/delete/:id', SongController.delete);
 
+Router.get('/letter/sync/', LetterController.findForSync);
 Router.get('/letter/list/:song_id', LetterController.findAll);
 Router.get('/letter/list/1/:id', LetterController.findId);
 Router.post('/letter/create/', LetterController.insert);

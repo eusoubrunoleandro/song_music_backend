@@ -37,6 +37,23 @@ module.exports = {
             })
         }        
     },
+    async findForSync(req, res){
+        try {
+            const list = await Model.find();
+            if(!list.length)
+            res.status(200).json({
+                message: "Nenhuma letra encontrado"
+            })
+
+            res.status(200).json({
+                content: list
+            })
+        } catch (error) {
+            res.status(401).json({
+                message: error
+            })
+        }        
+    },
     async insert(req, res){
         try {
             await Model.create(req.body);
