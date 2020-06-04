@@ -17,8 +17,7 @@ const SongSChema = new Schema({
         },
     },
     updateAt:{
-        type: Date,
-        default: Date.now()
+        type: Number
     }
 },{
     collection: "song"
