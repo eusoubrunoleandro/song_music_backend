@@ -10,10 +10,6 @@ const StrofeSchema = new Schema({
         ref: "Song",
         required: true,
     },
-    sequence:{
-        type: Number,
-        required: true,
-    },
     updateAt:{
         type: Date,
         default: Date.now()
