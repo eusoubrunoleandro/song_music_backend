@@ -10,6 +10,6 @@ app.use(Cors());
 app.use(bodyParser.json());
 app.use(Router)
 
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 3333)
 
 module.exports = app;
