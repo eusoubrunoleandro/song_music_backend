@@ -17,6 +17,7 @@ Router.put('/song/update/:id', SongController.update);
 Router.delete('/song/delete/:id', SongController.delete);
 
 Router.get('/letter/list/:song_id', LetterController.findAll);
+Router.get('/letter/list/1/:id', LetterController.findId);
 Router.post('/letter/create/', LetterController.insert);
 Router.put('/letter/update/:id', LetterController.update);
 Router.delete('/letter/delete/:id', LetterController.delete);
