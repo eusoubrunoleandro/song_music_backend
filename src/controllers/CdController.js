@@ -35,7 +35,7 @@ module.exports = {
     },
     async update(req, res){
         try {
-            const {updateAt, cd_name, year} = req.body;
+            const {cd_name, year, ...rest} = req.body;
             await Model.updateOne({_id: req.params.id}, req.body);
             await ModelSong.updateMany({"cd.cd_id": req.params.id}, {
                 cd: {cd_name_year: `${cd_name} - ${year}`}
