@@ -1,4 +1,5 @@
 const Model = require('../Models/Letter');
+const timeCurrent = require('../utils/currentTime');
 
 module.exports = {
     async findAll(req, res){
@@ -56,7 +57,11 @@ module.exports = {
     },
     async insert(req, res){
         try {
-            await Model.create(req.body);
+            const join_data = Object.assign(req.body, {
+                createdAt: timeCurrent,
+                updateAt: timeCurrent
+            })
+            await Model.create(join_data);
             res.status(200).json({
                 message: "Letra cadastrado com sucesso!"
             })
@@ -68,7 +73,10 @@ module.exports = {
     },
     async update(req, res){
         try {
-            await Model.updateOne({_id: req.params.id}, req.body);
+            const join_data = Object.assign(req.body, {
+                updateAt: timeCurrent
+            })
+            await Model.updateOne({_id: req.params.id}, join_data);
             res.status(200).json({
                 message: "Letra atualizado com sucesso!"
             })

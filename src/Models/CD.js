@@ -8,6 +8,9 @@ const CdSchema = new Schema({
     year: {
         type: Number
     },
+    createdAt:{
+        type: Number
+    },
     updateAt:{
         type: Number
     }

@@ -23,7 +23,11 @@ module.exports = {
     },
     async insert(req, res){
         try {
-            await Model.create(req.body);
+            const join_data = Object.assign(req.body, {
+                createdAt: timeCurrent,
+                updateAt: timeCurrent
+            })
+            await Model.create(join_data);
             res.status(200).json({
                 message: "Cd cadastrado com sucesso!"
             })
@@ -36,7 +40,10 @@ module.exports = {
     async update(req, res){
         try {
             const {cd_name, year, ...rest} = req.body;
-            await Model.updateOne({_id: req.params.id}, req.body);
+            const join_data = Object.assign(req.body, {
+                updateAt: timeCurrent
+            })
+            await Model.updateOne({_id: req.params.id}, join_data);
             await ModelSong.updateMany({"cd.cd_id": req.params.id}, {
                 cd: {cd_name_year: `${cd_name} - ${year}`}
             })

@@ -16,11 +16,14 @@ const SongSChema = new Schema({
             required: true,
         },
     },
+    createdAt:{
+        type: Number
+    },
     updateAt:{
         type: Number
     }
 },{
-    collection: "song"
+    collection: "song",
 })
 
 module.exports = connection.model('Song', SongSChema)

@@ -10,6 +10,9 @@ const StrofeSchema = new Schema({
         ref: "Song",
         required: true,
     },
+    createdAt:{
+        type: Number
+    },
     updateAt:{
         type: Number,
     }
