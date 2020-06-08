@@ -6,7 +6,10 @@ module.exports = {
     async searchDateCd(req, res){
         try {
             const {dateTime} = req.body;
-            const listCd = await ModelCd.find({ updateAt: { $gte: dateTime } });
+            const listCd = await ModelCd.find({$or: [
+                {updateAt: { $gte: dateTime } },
+                {createdAt: { $gte: dateTime } },
+            ]});
 
             if(!listCd.length)
             res.status(200).json({
@@ -28,7 +31,10 @@ module.exports = {
     async searchDateSong(req, res){
         try {
             const {dateTime} = req.body;
-            const listSong = await ModelSong.find({ updateAt: { $gte: dateTime } });
+            const listSong = await ModelSong.find({$or: [
+                {updateAt: { $gte: dateTime } },
+                {createdAt: { $gte: dateTime } },
+            ]});
 
             if(!listSong.length)
             res.status(200).json({
@@ -50,7 +56,10 @@ module.exports = {
     async searchDateLetter(req, res){
         try {
             const {dateTime} = req.body;
-            const listLetter = await ModelLetter.find({ updateAt: { $gte: dateTime } });
+            const listLetter = await ModelLetter.find({$or: [
+                {updateAt: { $gte: dateTime } },
+                {createdAt: { $gte: dateTime } },
+            ]});
 
             if(!listLetter.length)
             res.status(200).json({
