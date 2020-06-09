@@ -1,5 +1,6 @@
 const Model = require('../Models/CD');
 const ModelSong = require('../Models/Song');
+const timeCurrent = require('../utils/currentTime');
 
 module.exports = {
     async findAll(req, res){
@@ -39,10 +40,11 @@ module.exports = {
     },
     async update(req, res){
         try {
-            const {cd_name, year, ...rest} = req.body;
+            const {cd_name, year} = req.body;
             const join_data = Object.assign(req.body, {
                 updateAt: timeCurrent
             })
+
             await Model.updateOne({_id: req.params.id}, join_data);
             await ModelSong.updateMany({"cd.cd_id": req.params.id}, {
                 cd: {cd_name_year: `${cd_name} - ${year}`}
