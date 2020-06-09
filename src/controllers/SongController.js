@@ -1,10 +1,10 @@
 const Model = require('../Models/Song');
 const ModelLetter = require('../Models/Letter');
+const timeCurrent = require('../utils/currentTime');
 
 module.exports = {
     async findAll(req, res){
         try {
-            // let search = {};
             const querySearch = req.query.search;
             const search = querySearch === undefined ? {} : {
                 $or:[
@@ -51,6 +51,7 @@ module.exports = {
             const join_data = Object.assign(req.body, {
                 updateAt: timeCurrent
             })
+            
             await Model.updateOne({_id: req.params.id}, join_data);
             res.status(200).json({
                 message: "Song atualizado com sucesso!"
