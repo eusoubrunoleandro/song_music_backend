@@ -17,9 +17,15 @@ module.exports = {
                 message: "Nenhum cd encontrado"
             })
 
+            const separatorDataCreatedAt = listCd.filter(cd => cd.createdAt > dateTime)
+            const separatorDataUpdateAt = listCd.filter(cd => cd.updateAt > dateTime);
+
             res.status(200).json({
                 count: listCd.length,
-                content: listCd
+                content: {
+                    news: separatorDataCreatedAt,
+                    update: separatorDataUpdateAt
+                }
             })
 
         } catch (error) {
@@ -42,9 +48,15 @@ module.exports = {
                 message: "Nenhum song encontrado"
             })
 
+            const separatorDataCreatedAt = listSong.filter(song => song.createdAt > dateTime)
+            const separatorDataUpdateAt = listSong.filter(song => song.updateAt > dateTime);
+
             res.status(200).json({
                 count: listSong.length,
-                content: listSong
+                content: {
+                    news: separatorDataCreatedAt,
+                    update: separatorDataUpdateAt
+                }
             })
 
         } catch (error) {
@@ -67,9 +79,15 @@ module.exports = {
                 message: "Nenhuma letra encontrado"
             })
 
+            const separatorDataCreatedAt = listLetter.filter(letter => letter.createdAt > dateTime)
+            const separatorDataUpdateAt = listLetter.filter(letter => letter.updateAt > dateTime);
+
             res.status(200).json({
                 count: listLetter.length,
-                content: listLetter
+                content: {
+                    news: separatorDataCreatedAt,
+                    update: separatorDataUpdateAt
+                }
             })
 
         } catch (error) {
