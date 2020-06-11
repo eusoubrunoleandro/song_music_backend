@@ -4,7 +4,7 @@ const timeCurrent = require('../utils/currentTime');
 module.exports = {
     async findAll(req, res){
         try {
-            const list = await Model.find({song: req.params.song_id}).sort('updateAt');
+            const list = await Model.find({song: req.params.song_id}).sort('sequence');
             if(!list.length)
             res.status(200).json({
                 count: list.length,
@@ -40,7 +40,7 @@ module.exports = {
     },
     async findForSync(req, res){
         try {
-            const list = await Model.find();
+            const list = await Model.find().sort('sequence');
             if(!list.length)
             res.status(200).json({
                 message: "Nenhuma letra encontrado"
