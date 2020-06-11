@@ -47,6 +47,7 @@ module.exports = {
             })
 
             res.status(200).json({
+                count: list.length,
                 content: list
             })
         } catch (error) {
