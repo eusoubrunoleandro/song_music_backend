@@ -1,6 +1,7 @@
 const Model = require('../Models/Song');
 const ModelLetter = require('../Models/Letter');
-const timeCurrent = require('../utils/currentTime');
+const ModelSyncRemove = require('../Models/syncRemove');
+const {currentDate} = require('../utils/currentTime');
 
 module.exports = {
     async findAll(req, res){
@@ -33,8 +34,8 @@ module.exports = {
     async insert(req, res){
         try {
             const join_data = Object.assign(req.body, {
-                createdAt: timeCurrent,
-                updateAt: timeCurrent
+                createdAt: currentDate,
+                updateAt: currentDate
             })
             await Model.create(join_data);
             res.status(200).json({
@@ -49,7 +50,7 @@ module.exports = {
     async update(req, res){
         try {
             const join_data = Object.assign(req.body, {
-                updateAt: timeCurrent
+                updateAt: currentDate
             })
             
             await Model.updateOne({_id: req.params.id}, join_data);
@@ -66,6 +67,9 @@ module.exports = {
         try {
             await ModelLetter.deleteMany({song: req.params.id})
             await Model.deleteOne({_id: req.params.id});
+            await ModelSyncRemove.create({
+                song_id: req.params.id,
+            })
             res.status(200).json({
                 message: "Song apagado com sucesso!"
             })
