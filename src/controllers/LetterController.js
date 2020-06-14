@@ -1,5 +1,5 @@
 const Model = require('../Models/Letter');
-const timeCurrent = require('../utils/currentTime');
+const {currentDate} = require('../utils/currentTime');
 
 module.exports = {
     async findAll(req, res){
@@ -59,8 +59,8 @@ module.exports = {
     async insert(req, res){
         try {
             const join_data = Object.assign(req.body, {
-                createdAt: timeCurrent,
-                updateAt: timeCurrent
+                createdAt: currentDate,
+                updateAt: currentDate
             })
             await Model.create(join_data);
             res.status(200).json({
@@ -75,7 +75,7 @@ module.exports = {
     async update(req, res){
         try {
             const join_data = Object.assign(req.body, {
-                updateAt: timeCurrent
+                updateAt: currentDate
             })
             await Model.updateOne({_id: req.params.id}, join_data);
             res.status(200).json({
@@ -90,6 +90,9 @@ module.exports = {
     async delete(req, res){
         try {
             await Model.deleteOne({_id: req.params.id});
+            await ModelSyncRemove.create({
+                letter_id: req.params.id,
+            })
             res.status(200).json({
                 message: "Letra apagado com sucesso!"
             })
