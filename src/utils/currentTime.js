@@ -1,3 +1,5 @@
-const instance = new Date();
-const time = instance.getTime();
-module.exports = time;
+module.exports = {
+    currentDate(){
+        return new Date();
+    }
+};
