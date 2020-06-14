@@ -1,6 +1,7 @@
 const Model = require('../Models/CD');
 const ModelSong = require('../Models/Song');
-const timeCurrent = require('../utils/currentTime');
+const {currentDate} = require('../utils/currentTime');
+const ModelSyncRemove = require('../Models/syncRemove');
 
 module.exports = {
     async findAll(req, res){
@@ -25,8 +26,8 @@ module.exports = {
     async insert(req, res){
         try {
             const join_data = Object.assign(req.body, {
-                createdAt: timeCurrent,
-                updateAt: timeCurrent
+                createdAt: currentDate,
+                updateAt: currentDate
             })
             await Model.create(join_data);
             res.status(200).json({
@@ -42,7 +43,7 @@ module.exports = {
         try {
             const {cd_name, year} = req.body;
             const join_data = Object.assign(req.body, {
-                updateAt: timeCurrent
+                updateAt: currentDate()
             })
 
             await Model.updateOne({_id: req.params.id}, join_data);
@@ -60,8 +61,11 @@ module.exports = {
     },
     async delete(req, res){
         try {
-            await ModelSong.findByIdAndDelete({cd_id: req.paramas.id})
+            await ModelSong.deleteMany({cd_id: req.paramas.id})
             await Model.deleteOne({_id: req.params.id});
+            await ModelSyncRemove.create({
+                cd_id: req.params.id,
+            })
             res.status(200).json({
                 message: "Cd apagado com sucesso!"
             })
