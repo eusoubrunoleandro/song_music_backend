@@ -1,30 +1,52 @@
 const ModelCd = require('../Models/CD');
 const ModelSong = require('../Models/Song');
 const ModelLetter = require('../Models/Letter');
+const ModelSyncRemove = require('../Models/syncRemove');
+
+function convertingDate(date){
+    return new Date(date);
+}
+
+function verifyUpdate(data, dateRequest){
+    const createdAtConvert = convertingDate(data.createdAt)
+    if(createdAtConvert < dateRequest)
+    return data
+}
+
+function verifyCreated(data, dateRequest){
+    const createdAtConvert = convertingDate(data.createdAt)
+    if(createdAtConvert > dateRequest)
+    return data
+}
 
 module.exports = {
     async searchDateCd(req, res){
         try {
             const {dateTime} = req.body;
+            const convertDate = convertingDate(dateTime)
+            const listRemove = await ModelSyncRemove.find({
+                dateSync: {$gte: convertDate},
+                cd_id: {$exists:true}
+            })
             const listCd = await ModelCd.find({$or: [
-                {updateAt: { $gte: dateTime } },
-                {createdAt: { $gte: dateTime } },
+                {updateAt: { $gte: convertDate } },
+                {createdAt: { $gte: convertDate } },
             ]});
 
-            if(!listCd.length)
+            if(!listCd.length & !listRemove.length)
             res.status(200).json({
                 count: listCd.length,
                 message: "Nenhum cd encontrado"
             })
 
-            const separatorDataCreatedAt = listCd.filter(cd => cd.createdAt > dateTime)
-            const separatorDataUpdateAt = listCd.filter(cd => cd.updateAt > dateTime);
+            const separatorDataCreatedAt = listCd.filter(cd => verifyCreated(cd, convertDate))
+            const separatorDataUpdateAt = listCd.filter(cd => verifyUpdate(cd, convertDate));
 
             res.status(200).json({
-                count: listCd.length,
                 content: {
                     news: separatorDataCreatedAt,
-                    update: separatorDataUpdateAt
+                    update: separatorDataUpdateAt,
+                    remove: listRemove
                 }
             })
 
@@ -37,25 +59,30 @@ module.exports = {
     async searchDateSong(req, res){
         try {
             const {dateTime} = req.body;
+            const convertDate = convertingDate(dateTime)
+            const listRemove = await ModelSyncRemove.find({
+                dateSync: {$gte: convertDate},
+                song_id: {$exists:true}
+            })
             const listSong = await ModelSong.find({$or: [
-                {updateAt: { $gte: dateTime } },
-                {createdAt: { $gte: dateTime } },
+                {updateAt: { $gte: convertDate } },
+                {createdAt: { $gte: convertDate } },
             ]});
 
-            if(!listSong.length)
+            if(!listSong.length & !listRemove.length)
             res.status(200).json({
                 count: listSong.length,
                 message: "Nenhum song encontrado"
             })
 
-            const separatorDataCreatedAt = listSong.filter(song => song.createdAt > dateTime)
-            const separatorDataUpdateAt = listSong.filter(song => song.updateAt > dateTime);
+            const separatorDataCreatedAt = listSong.filter(song => verifyCreated(song, convertDate))
+            const separatorDataUpdateAt = listSong.filter(song => verifyUpdate(song, convertDate));
 
             res.status(200).json({
-                count: listSong.length,
                 content: {
                     news: separatorDataCreatedAt,
-                    update: separatorDataUpdateAt
+                    update: separatorDataUpdateAt,
+                    remove: listRemove
                 }
             })
 
@@ -68,25 +95,30 @@ module.exports = {
     async searchDateLetter(req, res){
         try {
             const {dateTime} = req.body;
+            const convertDate = convertingDate(dateTime)
+            const listRemove = await ModelSyncRemove.find({
+                dateSync: {$gte: convertDate},
+                song_id: {$exists:true}
+            })
             const listLetter = await ModelLetter.find({$or: [
-                {updateAt: { $gte: dateTime } },
-                {createdAt: { $gte: dateTime } },
+                {updateAt: { $gte: convertDate } },
+                {createdAt: { $gte: convertDate } },
             ]});
 
-            if(!listLetter.length)
+            if(!listLetter.length & !listRemove.length)
             res.status(200).json({
                 count: listLetter.length,
                 message: "Nenhuma letra encontrado"
             })
 
-            const separatorDataCreatedAt = listLetter.filter(letter => letter.createdAt > dateTime)
-            const separatorDataUpdateAt = listLetter.filter(letter => letter.updateAt > dateTime);
+            const separatorDataCreatedAt = listLetter.filter(letter => verifyCreated(letter, convertDate))
+            const separatorDataUpdateAt = listLetter.filter(letter => verifyUpdate(letter, convertDate));
 
             res.status(200).json({
-                count: listLetter.length,
                 content: {
                     news: separatorDataCreatedAt,
-                    update: separatorDataUpdateAt
+                    update: separatorDataUpdateAt,
+                    remove: listRemove
                 }
             })
 
