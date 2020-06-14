@@ -15,10 +15,11 @@ const StrofeSchema = new Schema({
         required: true
     },
     createdAt:{
-        type: Number
+        type: Date
     },
     updateAt:{
-        type: Number,
+        type: Date,
+        default: Date.now
     }
 },{
     collection: "letter"
