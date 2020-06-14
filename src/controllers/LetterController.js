@@ -59,8 +59,8 @@ module.exports = {
     async insert(req, res){
         try {
             const join_data = Object.assign(req.body, {
-                createdAt: currentDate,
-                updateAt: currentDate
+                createdAt: currentDate(),
+                updateAt: currentDate()
             })
             await Model.create(join_data);
             res.status(200).json({
@@ -75,7 +75,7 @@ module.exports = {
     async update(req, res){
         try {
             const join_data = Object.assign(req.body, {
-                updateAt: currentDate
+                updateAt: currentDate()
             })
             await Model.updateOne({_id: req.params.id}, join_data);
             res.status(200).json({
