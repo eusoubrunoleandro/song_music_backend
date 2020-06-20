@@ -60,6 +60,7 @@ module.exports = {
         try {
             const {dateTime} = req.body;
             const convertDate = convertingDate(dateTime)
+
             const listRemove = await ModelSyncRemove.find({
                 dateSync: {$gte: convertDate},
                 song_id: {$exists:true}
