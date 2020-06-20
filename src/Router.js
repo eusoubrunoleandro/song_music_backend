@@ -13,6 +13,7 @@ Router.put('/cd/update/:id', CdController.update);
 Router.delete('/cd/delete/:id', CdController.delete);
 
 Router.get('/song/list/', SongController.findAll);
+Router.get('/song/cd/:cd_id', SongController.findForCd);
 Router.post('/song/create/', SongController.insert);
 Router.put('/song/update/:id', SongController.update);
 Router.delete('/song/delete/:id', SongController.delete);

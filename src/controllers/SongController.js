@@ -31,6 +31,27 @@ module.exports = {
             })
         }        
     },
+    async findForCd(req, res){
+        try {
+            const list = await Model.find({
+                "cd.cd_id": req.params.cd_id
+            });
+            if(!list.length)
+            res.status(200).json({
+                count: list.length,
+                message: "Nenhum Song encontrado"
+            })
+
+            res.status(200).json({
+                count: list.length,
+                content: list
+            })
+        } catch (error) {
+            res.status(401).json({
+                message: error
+            })
+        }        
+    },
     async insert(req, res){
         try {
             const join_data = Object.assign(req.body, {
