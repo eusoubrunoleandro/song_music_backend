@@ -25,7 +25,7 @@ Router.post('/letter/create/', LetterController.insert);
 Router.put('/letter/update/:id', LetterController.update);
 Router.delete('/letter/delete/:id', LetterController.delete);
 
-// sync
+
 Router.post('/sync/cd/', DateControllerSync.searchDateCd)
 Router.post('/sync/song/', DateControllerSync.searchDateSong)
 Router.post('/sync/letter/', DateControllerSync.searchDateLetter)
