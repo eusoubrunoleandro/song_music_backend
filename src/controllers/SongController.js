@@ -4,37 +4,10 @@ const ModelSyncRemove = require('../Models/syncRemove');
 const {currentDate} = require('../utils/currentTime');
 
 module.exports = {
-    async findAll(req, res){
-        try {
-            const querySearch = req.query.search;
-            const search = querySearch === undefined ? {} : {
-                $or:[
-                    {song_name: new RegExp(querySearch, 'i')},
-                    {"cd.cd_name_year": new RegExp(querySearch, 'i')}
-                ]
-            }
-
-            const list = await Model.find(search);
-            if(!list.length)
-            res.status(200).json({
-                count: list.length,
-                message: "Nenhum Song encontrado"
-            })
-
-            res.status(200).json({
-                count: list.length,
-                content: list
-            })
-        } catch (error) {
-            res.status(401).json({
-                message: error
-            })
-        }        
-    },
-    async findForCd(req, res){
+   async findForCd(req, res){
         try {
             const list = await Model.find({
-                "cd.cd_id": req.params.cd_id
+                "cd_id": req.params.cd_id
             });
             if(!list.length)
             res.status(200).json({
