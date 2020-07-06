@@ -5,16 +5,10 @@ const SongSChema = new Schema({
         type: String,
         required: true,
     },
-    cd:{
-        cd_name_year:{
-            type: String,
-            required: true,
-        },
-        cd_id:{
-            type: connection.Schema.Types.ObjectId,
-            ref: "Cd",
-            required: true,
-        },
+    cd_id:{
+        type: connection.Schema.Types.ObjectId,
+        ref: "Cd",
+        required: true,
     },
     createdAt:{
         type: Date
