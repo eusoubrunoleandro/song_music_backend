@@ -10,6 +10,12 @@ const StrofeSchema = new Schema({
         ref: "Song",
         required: true,
     },
+    repetir:{
+        type: Number,
+    },
+    voice_separator: {
+        type: String,
+    },
     sequence:{
         type: Number,
         required: true
