@@ -1,12 +1,12 @@
 require('dotenv').config();
 const Express = require('express');
 const bodyParser = require('body-parser');
-const Cors = require('cors');
+const cors = require('cors');
 
 const Router = require('./Router');
 const app = Express();
 
-app.use(Cors());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(Router)
 
