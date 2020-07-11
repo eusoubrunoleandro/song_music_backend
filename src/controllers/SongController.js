@@ -28,6 +28,7 @@ module.exports = {
     async insert(req, res){
         try {
             const join_data = Object.assign(req.body, {
+                user: req.userCurrent,
                 createdAt: currentDate(),
                 updateAt: currentDate()
             })
@@ -44,6 +45,7 @@ module.exports = {
     async update(req, res){
         try {
             const join_data = Object.assign(req.body, {
+                user: req.userCurrent,
                 updateAt: currentDate()
             })
             

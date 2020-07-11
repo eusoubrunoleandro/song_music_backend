@@ -31,7 +31,7 @@ module.exports = {
             const listCd = await ModelCd.find({$or: [
                 {updateAt: { $gte: convertDate } },
                 {createdAt: { $gte: convertDate } },
-            ]});
+            ]}, ['cd_name', 'year', 'createdAt', 'updateAt']);
 
             if(!listCd.length & !listRemove.length)
             res.status(200).json({
@@ -68,7 +68,7 @@ module.exports = {
             const listSong = await ModelSong.find({$or: [
                 {updateAt: { $gte: convertDate } },
                 {createdAt: { $gte: convertDate } },
-            ]});
+            ]}, ['song_name','cd_id', 'createdAt', 'updatedAt']);
 
             if(!listSong.length & !listRemove.length)
             res.status(200).json({
@@ -104,7 +104,7 @@ module.exports = {
             const listLetter = await ModelLetter.find({$or: [
                 {updateAt: { $gte: convertDate } },
                 {createdAt: { $gte: convertDate } },
-            ]});
+            ]}, ['strofe', 'song', 'repetir', 'voice_separator', 'sequence', 'createdAt', 'updatedAt']);
 
             if(!listLetter.length & !listRemove.length)
             res.status(200).json({
