@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const generateToken = (id) => {
     return jwt.sign({
-        usot: id
+        usot: id,
     }, process.env.SECRET_KEY_TOKEN, {
         expiresIn: 604800,
     })
@@ -22,7 +22,8 @@ module.exports = {
         res.status(401).json({message: "E-mail ou senha incorretos!"})
 
         res.status(200).json({
-            token: generateToken(verifyMailIfExists[0]._id)
+            token: generateToken(verifyMailIfExists[0]._id),
+            complete_name: verifyMailIfExists[0].complete_name
         })
     }
 }
