@@ -7,7 +7,7 @@ const app = Express();
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Origin", "GET,PUT,POST,DELETE,OPTIONS");
+    // res.setHeader("Access-Control-Allow-Origin", "GET,PUT,POST,DELETE,OPTIONS");
     next()
 })
 app.use(bodyParser.json());
