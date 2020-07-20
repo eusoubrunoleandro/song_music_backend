@@ -5,9 +5,15 @@ const bodyParser = require('body-parser');
 const Router = require('./Router');
 const app = Express();
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "GET,PUT,POST,DELETE,OPTIONS");
+    res.setHeader("Access-Control-Allow-Origin", "Content-Type");
+
+    next()
+})
 app.use(bodyParser.json());
 app.use(Router)
-app.use((req, res) => res.setHeader("Access-Control-Allow-Origin", "*"))
 
 app.listen(process.env.PORT || 3333)
 
