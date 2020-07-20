@@ -6,7 +6,7 @@ const Router = require('./Router');
 const app = Express();
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", `${req.method}`);
+    res.setHeader("Access-Control-Allow-Origin", "*");
     next()
 })
 app.use(bodyParser.json());
