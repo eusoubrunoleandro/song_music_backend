@@ -30,7 +30,8 @@ module.exports = {
                 createdAt: currentDate(),
                 updateAt: currentDate()
             })
-            await Model.create(join_data);
+            const novo = await Model.create(join_data);
+            console.log(novo)
             res.status(200).json({
                 message: "Cd cadastrado com sucesso!"
             })
